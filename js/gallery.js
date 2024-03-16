@@ -70,12 +70,12 @@ const galleryList = document.querySelector('.gallery');
 
 const galleryMarkup = images.map(image => `
   <li class="gallery-item">
-  <a class="gallery-link" href="large-image.jpg">
+  <a class="gallery-link" href="${image.original}">
     <img
       class="gallery-image"
-      src="small-image.jpg"
-      data-source="large-image.jpg"
-      alt="Image description"
+      src="${image.preview}"
+      data-source="${image.original}"
+      alt="${image.description}"
     />
   </a>
 </li>
@@ -84,8 +84,28 @@ const galleryMarkup = images.map(image => `
 // відображення в браузері
 
 galleryList.innerHTML = galleryMarkup;
- 
 
-galleryList.addEventListener('click', function (event) {
-  event.
-})
+
+//прослуховувач для делегування кліків в галереї
+galleryList.addEventListener('click', event => {
+  event.preventDefault();
+  
+//(зображення?)
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+
+  // Отримуємо посилання на велике зображення з data-атрибуту
+  const largeImageUrl = event.target.dataset.source;
+  openModal(largeImageUrl);
+});
+
+// open click modal
+
+function openModal(url) {
+  const instance = basicLightBox.create(`<img src="${url}" alt="Image">`);
+
+  instance.show();
+}
+
