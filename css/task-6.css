@@ -1,0 +1,92 @@
+#controls {
+  background-color: #f6f6fe;
+
+  max-width: 486px;
+  height: 104px;
+
+  padding: 32px;
+  margin-bottom: 16px;
+
+  border-radius: 8px 0;
+
+  display: flex;
+  justify-content: center;
+
+  gap: 16px;
+}
+
+#controls input {
+  background-color: #f6f6fe;
+
+  width: 150px;
+  height: 40px;
+
+  padding: 8px;
+
+  border-radius: 8px;
+  border: 1px solid #808080;
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+
+  text-align: center;
+
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#controls input:hover {
+  border-color: #2e2f42;
+}
+
+#controls button {
+  width: 120px;
+
+  border-radius: 8px;
+  border: none;
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #fff;
+
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+#controls button[data-create] {
+  background-color: #4e75ff;
+}
+
+#controls button[data-create]:hover,
+#controls button[data-create]:focus {
+  background-color: #6c8cff;
+}
+
+#controls button[data-destroy] {
+  background-color: #ff4e4e;
+}
+
+#controls button[data-destroy]:hover,
+#controls button[data-destroy]:focus {
+  background-color: #ff7070;
+}
+
+#boxes {
+  background-color: #f6f6fe;
+
+  max-width: 486px;
+
+  padding: 32px;
+
+  border-radius: 8px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}

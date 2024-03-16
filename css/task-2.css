@@ -1,0 +1,23 @@
+ul,
+li {
+  list-style-type: none;
+}
+
+img {
+  display: block;
+}
+
+.gallery {
+  max-width: 1128px;
+  margin: 0 auto;
+
+  display: flex;
+  gap: 24px;
+}
+
+.gallery img {
+  min-height: 100%;
+  max-width: 100%;
+
+  object-fit: cover;
+}
