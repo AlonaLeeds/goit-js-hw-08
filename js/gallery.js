@@ -64,48 +64,77 @@ const images = [
   },
 ];
 
-// наповнення галереї
+// Отримуємо посилання на елемент списку галереї з класом "gallery"
+const galleryList = document.querySelector('.gallery');
 
-const galleryList = document.querySelector('.gallery'); 
-
-const galleryMarkup = images.map(image => `
-  <li class="gallery-item">
+// Створюємо HTML розмітку для кожного зображення в галереї за допомогою методу map
+const galleryImages = images
+  .map(
+    image => `
+<li class="gallery-item">
   <a class="gallery-link" href="${image.original}">
     <img
       class="gallery-image"
       src="${image.preview}"
       data-source="${image.original}"
       alt="${image.description}"
+      width="360"
+      height="200"
     />
   </a>
-</li>
-`).join('');
+</li>`
+  )
+  .join('');
 
-// відображення в браузері
+  // Вставляємо згенеровану HTML розмітку зображень в елемент списку галереї
+galleryList.innerHTML = galleryImages;
 
-galleryList.innerHTML = galleryMarkup;
+
+// Додаємо обробник подій 'click' на елементі списку галереї
+galleryList.addEventListener('click', handleImageClick);
 
 
-//прослуховувач для делегування кліків в галереї
-galleryList.addEventListener('click', event => {
-  event.preventDefault();
-  
-//(зображення?)
+// Функція, яка викликається при кліці на зображення мініатюри
+function handleImageClick(event) {
+  event.preventDefault(); // Зупиняємо стандартну поведінку переходу за посиланням
+
+  // Перевіряємо, чи було клікнуто саме на зображення мініатюри
   if (event.target.nodeName !== 'IMG') {
-    return;
+    return;  // Якщо ні, виходимо з функції
   }
 
+  // Отримуємо URL великого зображення з атрибуту 'data-source' клікнутого зображення
+  const handledImageClick = event.target.dataset.source;
 
-  // Отримуємо посилання на велике зображення з data-атрибуту
-  const largeImageUrl = event.target.dataset.source;
-  openModal(largeImageUrl);
-});
 
-// open click modal
+  // Створюємо екземпляр модального вікна з великим зображенням
+  const instance = basicLightbox.create(
+    `<img src="${handledImageClick}" width="1112" height="640">`,
+    {
 
-function openModal(url) {
-  const instance = basicLightBox.create(`<img src="${url}" alt="Image">`);
-
+       // Обробник, який викликається при показі модального вікна
+      onShow: instance => {
+        // Додаємо обробник події 'keydown' для закриття модального вікна при натисканні клавіші 'Escape'
+        const handleEscapePress = event => {
+          if (event.code === 'Escape') {
+            instance.close(); // Закриваємо модальне вікно
+          }
+        };
+        document.addEventListener('keydown', handleEscapePress); // Додаємо обробник події
+      },
+      
+    // Обробник, який викликається при закритті модального вікна
+    onClose: instance => {
+        // Видаляємо обробник події 'keydown'
+        const handleEscapePress = event => {
+          if (event.code === 'Escape') {
+            instance.close(); // Закриваємо модальне вікно
+          }
+        };
+        document.removeEventListener('keydown', handleEscapePress); // Видаляємо обробник події
+      },
+    }
+  );
+ // Показуємо модальне вікно з великим зображенням
   instance.show();
 }
-
