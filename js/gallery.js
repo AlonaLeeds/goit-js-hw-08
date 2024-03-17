@@ -64,10 +64,8 @@ const images = [
   },
 ];
 
-// Отримуємо посилання на елемент списку галереї з класом "gallery"
 const galleryList = document.querySelector('.gallery');
 
-// Створюємо HTML розмітку для кожного зображення в галереї за допомогою методу map
 const galleryImages = images
   .map(
     image => `
@@ -86,55 +84,44 @@ const galleryImages = images
   )
   .join('');
 
-  // Вставляємо згенеровану HTML розмітку зображень в елемент списку галереї
 galleryList.innerHTML = galleryImages;
 
 
-// Додаємо обробник подій 'click' на елементі списку галереї
 galleryList.addEventListener('click', handleImageClick);
 
 
-// Функція, яка викликається при кліці на зображення мініатюри
 function handleImageClick(event) {
-  event.preventDefault(); // Зупиняємо стандартну поведінку переходу за посиланням
+  event.preventDefault(); 
 
-  // Перевіряємо, чи було клікнуто саме на зображення мініатюри
   if (event.target.nodeName !== 'IMG') {
-    return;  // Якщо ні, виходимо з функції
+    return;  
   }
 
-  // Отримуємо URL великого зображення з атрибуту 'data-source' клікнутого зображення
   const handledImageClick = event.target.dataset.source;
 
 
-  // Створюємо екземпляр модального вікна з великим зображенням
   const instance = basicLightbox.create(
     `<img src="${handledImageClick}" width="1112" height="640">`,
     {
 
-       // Обробник, який викликається при показі модального вікна
       onShow: instance => {
-        // Додаємо обробник події 'keydown' для закриття модального вікна при натисканні клавіші 'Escape'
         const handleEscapePress = event => {
           if (event.code === 'Escape') {
-            instance.close(); // Закриваємо модальне вікно
+            instance.close();
           }
         };
-        document.addEventListener('keydown', handleEscapePress); // Додаємо обробник події
+        document.addEventListener('keydown', handleEscapePress); 
       },
       
-    // Обробник, який викликається при закритті модального вікна
     onClose: instance => {
-        // Видаляємо обробник події 'keydown'
         const handleEscapePress = event => {
           if (event.code === 'Escape') {
-            instance.close(); // Закриваємо модальне вікно
+            instance.close(); 
           }
         };
-        document.removeEventListener('keydown', handleEscapePress); // Видаляємо обробник події
+        document.removeEventListener('keydown', handleEscapePress);
       },
     }
   );
- // Показуємо модальне вікно з великим зображенням
   instance.show();
 }
