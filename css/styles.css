@@ -1,3 +1,12 @@
+/*Обнуление*/
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
 
 ul,
 li {
@@ -9,32 +18,28 @@ img {
 }
 
 .gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
   padding: 0;
   max-width: 1128px;
   margin: 24px auto;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
 }
 
 .gallery-item {
   max-width: 360px;
-
   overflow: hidden;
-
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.gallery-item:hover,
-.gallery-item:focus {
+.gallery-item:focus,
+.gallery-item:hover {
   transform: scale(1.04);
 }
 
 .gallery-image {
   max-width: 100%;
   min-height: 100%;
-
   object-fit: cover;
 }
